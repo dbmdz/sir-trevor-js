@@ -8,5 +8,7 @@ module.exports = {
   List: require('./list'),
   Tweet: require('./tweet'),
   Video: require('./video'),
-  OrderedList: require('./ordered-list')
+  OrderedList: require('./ordered-list'),
+  Artifact: require('./artifact'),
+  KpbArtifact: require('./kpb-artifact')
 };
