@@ -6,42 +6,52 @@ var Block = require('../block');
 module.exports = Block.extend({
 
   type: "image",
-  
-  droppable: true,
-  uploadable: true,
 
   icon_name: 'image',
 
-  loadData: function(data){
-    // Create our image tag
-    this.editor.innerHTML = '';
-    this.editor.appendChild(Dom.createElement('img', { src: data.file.url }));
+  editorHTML: function () {
+    var blockId = this.blockID;
+    return '<div class="imageBlock">' +
+           '<div class="imageUpload">' +
+           '  <a class="btn btn-primary btn-xs open-upload-modal">Bild auswählen</a> oder bekannte ID eingeben<br/>' +
+           '  <input type="text" class="js-image-id" data-name="id"/>' +
+           '</div>' +
+           '<div class="imageFormatting">' +
+           '  <b>Ausrichtung:</b> <input type="radio" name="' + blockId + '-position" data-name="position" value="left">links <input type="radio" name="' + blockId + '-position" data-name="position" value="right">rechts<br/>' +
+           '  <b>Breite:</b> <input type="radio" name="' + blockId + '-width" data-name="width" value="25%">25% <input type="radio" name="' + blockId + '-width" data-name="width" value="33%">33% <input type="radio" name="' + blockId + '-width" data-name="width" value="50%">50% <input type="radio" name="' + blockId + '-width" data-name="width" value="100%">100%' +
+           '</div>' +
+           '</div>';
   },
 
-  onDrop: function(transferData){
-    var file = transferData.files[0],
-        urlAPI = (typeof URL !== "undefined") ? URL : (typeof webkitURL !== "undefined") ? webkitURL : null;
+  loadData: function(data){
+    // retrieve the input field for the image id
+    var idInput = this.inner.querySelector('.js-image-id');
 
-    // Handle one upload at a time
-    if (/image/.test(file.type)) {
-      this.loading();
-      // Show this image on here
-      Dom.hide(this.inputs);
-      this.editor.innerHTML = '';
-      this.editor.appendChild(Dom.createElement('img', { src: urlAPI.createObjectURL(file) }));
-      Dom.show(this.editor);
+    // set the image id as value for the input field
+    idInput.value = data.id;
 
-      this.uploader(
-        file,
-        function(data) {
-          this.setData(data);
-          this.ready();
-        },
-        function(error) {
-          this.addMessage(i18n.t('blocks:image:upload_error'));
-          this.ready();
-        }
-      );
+    // Create our image tag
+    Dom.insertAfter(Dom.createElement('img', {src: "/uploads/" + data.id + "/thumbnail", class: "thumbnail"}), idInput);
+
+    // set radio button value for position
+    if(data.position){
+      this.inner.querySelector('input[name="' + this.blockID + '-position"][value="' + data.position + '"]').checked = true;
     }
+    // set radio button value for width
+    if(data.width){
+      this.inner.querySelectorAll('input[name="' + this.blockID + '-width"][value="' + data.width + '"]')[0].checked = true;
+    }
+  },
+
+  onBlockRender: function(){
+    this.inner.querySelector('.open-upload-modal').addEventListener('click', function (ev) {
+      configureUploadModal('uploadModal', function(data){
+        var idInput = this.inner.querySelector('.js-image-id');
+        idInput.value = data.result.files[0].name;
+        Dom.remove(this.inner.querySelector('img'));
+        Dom.insertAfter(Dom.createElement('img', {src: data.result.files[0].thumbnailUrl}), idInput);
+      }.bind(this));
+      $('#uploadModal').modal('show');
+    }.bind(this));
   }
 });
