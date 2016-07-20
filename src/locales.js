@@ -58,6 +58,12 @@ var Locales = {
       },
       heading: {
         'title': "Heading"
+      },
+      artifact: {
+        'title': 'Artifact'
+      },
+      kpb_artifact: {
+        'title': 'KPB Artifact'
       }
     }
   }

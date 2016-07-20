@@ -51,6 +51,12 @@ SirTrevor.Locales.de = {
     },
     heading: {
       'title': 'Überschrift'
+    },
+    artifact: {
+      'title': 'Artefakt'
+    },
+    kpb_artifact: {
+      'title': 'KPB Artefakt'
     }
   }
 };
