@@ -31,6 +31,7 @@ module.exports = Block.extend({
     data['item-list'].forEach(function(item){
       thumbnail = Dom.createElement('div', {class: 'col-lg-4 col-md-4 thumb'});
       thumbnail.innerHTML = '<div class="thumbnail">' +
+                            '  <button class="close" data-dismiss="modal" type="button"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>' +
                             '  <img class="img-responsive" src="http://localhost:3000/uploads/thumbnail/' + item['image-id'] + '">' +
                             '</div>';
       imageList.appendChild(thumbnail);
@@ -52,7 +53,8 @@ module.exports = Block.extend({
         var imageList = this.inner.querySelector('.image-list');
         var thumbnail = Dom.createElement('div', {class: 'col-lg-4 col-md-4 thumb'});
         thumbnail.innerHTML = '<div class="thumbnail">' +
-                              '  <img class="img-responsive" src="http://localhost:3000/uploads/thumbnail/' + data.result.files[0].name + '">' +
+                              '  <button class="close" data-dismiss="modal" type="button"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>' +
+                              '  <img class="img-responsive" src="' + data.result.files[0].thumbnailUrl+ '">' +
                               '</div>';
         imageList.appendChild(thumbnail);
       }.bind(this));
