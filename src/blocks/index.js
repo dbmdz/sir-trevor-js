@@ -10,5 +10,6 @@ module.exports = {
   Video: require('./video'),
   OrderedList: require('./ordered-list'),
   Artifact: require('./artifact'),
-  KpbArtifact: require('./kpb-artifact')
+  KpbArtifact: require('./kpb-artifact'),
+  ImageGallery: require('./image-gallery')
 };
