@@ -57,6 +57,9 @@ SirTrevor.Locales.de = {
     },
     kpb_artifact: {
       'title': 'KPB Artefakt'
+    },
+    image_gallery: {
+      'title': 'Bildergalerie'
     }
   }
 };

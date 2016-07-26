@@ -64,6 +64,9 @@ var Locales = {
       },
       kpb_artifact: {
         'title': 'KPB Artifact'
+      },
+      image_gallery: {
+        'title': 'Image gallery'
       }
     }
   }
