@@ -28,14 +28,26 @@ module.exports = Block.extend({
     // Create the image list
     var imageList = this.inner.querySelector('.image-list');
     var thumbnail;
-    data['item-list'].forEach(function(item){
+    var itemList = data['item-list'];
+    itemList.forEach(function(item){
+      // Create the remove button for the new thumbnail
+      var removeButton = Dom.createElement('button', {class: 'close', 'data-id': item['id'], type: 'button'});
+      removeButton.innerHTML = '<span aria-hidden="true">×</span><span class="sr-only">Close</span>';
+      removeButton.addEventListener('click', function(){
+        _.remove(this, function(item){
+          return item.id === parseInt(removeButton.getAttribute('data-id'))
+        });
+        removeButton.parentNode.parentNode.removeChild(removeButton.parentNode);
+      }.bind(this));
+      // Create the thumbnail itself and append the remove button
       thumbnail = Dom.createElement('div', {class: 'col-lg-4 col-md-4 thumb'});
       thumbnail.innerHTML = '<div class="thumbnail">' +
-                            '  <button class="close" data-dismiss="modal" type="button"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>' +
                             '  <img class="img-responsive" src="http://localhost:3000/uploads/thumbnail/' + item['image-id'] + '">' +
                             '</div>';
+      thumbnail.insertBefore(removeButton, thumbnail.firstChild);
+      // Append the thumbnail to the image list
       imageList.appendChild(thumbnail);
-    });
+    },itemList);
   },
 
   onBlockRender: function(){
@@ -44,18 +56,32 @@ module.exports = Block.extend({
     }
     this.inner.querySelector('.open-gallery-upload-modal').addEventListener('click', function (ev) {
       configureUploadModal('galleryUploadModal', function(data){
-        this.getData().data['item-list'].push({
+        var itemList = this.getData().data['item-list'];
+        var nextId = _.max(itemList, 'id').id + 1 || 1;
+        itemList.push({
+          'id': nextId,
           'image-id': data.result.files[0].name,
           'image-link': data.formData['imageLink'],
           'text': {'de': data.formData['text[de]'], 'en': data.formData['text[en]']},
           'text-link': data.formData['textLink']
         });
-        var imageList = this.inner.querySelector('.image-list');
+        // Create the remove button for the new thumbnail
+        var removeButton = Dom.createElement('button', {class: 'close', 'data-id': nextId, type: 'button'});
+        removeButton.innerHTML = '<span aria-hidden="true">×</span><span class="sr-only">Close</span>';
+        removeButton.addEventListener('click', function(){
+          _.remove(this, function(item){
+            return item.id === parseInt(removeButton.getAttribute('data-id'))
+          });
+          removeButton.parentNode.parentNode.removeChild(removeButton.parentNode);
+        }.bind(this.getData().data['item-list']));
+        // Create the thumbnail itself and append the remove button
         var thumbnail = Dom.createElement('div', {class: 'col-lg-4 col-md-4 thumb'});
         thumbnail.innerHTML = '<div class="thumbnail">' +
-                              '  <button class="close" data-dismiss="modal" type="button"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>' +
                               '  <img class="img-responsive" src="' + data.result.files[0].thumbnailUrl+ '">' +
                               '</div>';
+        thumbnail.insertBefore(removeButton, thumbnail.firstChild);
+        // Append the thumbnail to the image list
+        var imageList = this.inner.querySelector('.image-list');
         imageList.appendChild(thumbnail);
       }.bind(this));
       $('#galleryUploadModal').modal('show');
