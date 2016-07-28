@@ -7,7 +7,7 @@ module.exports = Block.extend({
 
   type: "image_gallery",
 
-  icon_name: 'image',
+  icon_name: 'images',
 
   editorHTML: function () {
     var blockId = this.blockID;
