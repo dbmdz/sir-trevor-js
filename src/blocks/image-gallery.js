@@ -30,20 +30,30 @@ module.exports = Block.extend({
     var thumbnail;
     var itemList = data['item-list'];
     itemList.forEach(function(item){
-      // Create the remove button for the new thumbnail
+      // Create the remove button for the current thumbnail
       var removeButton = Dom.createElement('button', {class: 'close', 'data-id': item['id'], type: 'button'});
-      removeButton.innerHTML = '<span aria-hidden="true">×</span><span class="sr-only">Close</span>';
+      removeButton.innerHTML = '<svg class="st-icon" role="img" style="height:1em;width:1em;"><use xlink:href="sir-trevor-icons.svg#cross"></use></svg>';
       removeButton.addEventListener('click', function(){
         _.remove(this, function(item){
           return item.id === parseInt(removeButton.getAttribute('data-id'))
         });
         removeButton.parentNode.parentNode.removeChild(removeButton.parentNode);
       }.bind(this));
+      // Create the edit button for the current thumbnail
+      var editButton = Dom.createElement('button', {class: 'close', 'data-id': item['id'], type: 'button'});
+      editButton.innerHTML = '<svg class="st-icon" role="img" style="height:1em;width:1em;"><use xlink:href="sir-trevor-icons.svg#edit"></use></svg>';
+      editButton.addEventListener('click', function(){
+        configureEditModal('editModal',item,function(editedData){
+          _.merge(item, editedData);
+        });
+        $('#editModal').modal('show');
+      });
       // Create the thumbnail itself and append the remove button
       thumbnail = Dom.createElement('div', {class: 'col-lg-4 col-md-4 thumb'});
       thumbnail.innerHTML = '<div class="thumbnail">' +
                             '  <img class="img-responsive" src="http://localhost:3000/uploads/thumbnail/' + item['image-id'] + '">' +
                             '</div>';
+      thumbnail.insertBefore(editButton, thumbnail.firstChild);
       thumbnail.insertBefore(removeButton, thumbnail.firstChild);
       // Append the thumbnail to the image list
       imageList.appendChild(thumbnail);
@@ -58,27 +68,40 @@ module.exports = Block.extend({
       configureUploadModal('galleryUploadModal', function(data){
         var itemList = this.getData().data['item-list'];
         var nextId = _.max(itemList, 'id').id + 1 || 1;
-        itemList.push({
+        var itemData = {
           'id': nextId,
           'image-id': data.result.files[0].name,
           'image-link': data.formData['imageLink'],
           'text': {'de': data.formData['text[de]'], 'en': data.formData['text[en]']},
           'text-link': data.formData['textLink']
-        });
+        };
+        itemList.push(itemData);
         // Create the remove button for the new thumbnail
         var removeButton = Dom.createElement('button', {class: 'close', 'data-id': nextId, type: 'button'});
-        removeButton.innerHTML = '<span aria-hidden="true">×</span><span class="sr-only">Close</span>';
+        //removeButton.innerHTML = '<span aria-hidden="true">×</span><span class="sr-only">Close</span>';
+        removeButton.innerHTML = '<svg class="st-icon" role="img" style="height:1em;width:1em;"><use xlink:href="sir-trevor-icons.svg#cross"></use></svg>';
         removeButton.addEventListener('click', function(){
           _.remove(this, function(item){
             return item.id === parseInt(removeButton.getAttribute('data-id'))
           });
           removeButton.parentNode.parentNode.removeChild(removeButton.parentNode);
-        }.bind(this.getData().data['item-list']));
+        }.bind(itemList));
+        // Create the edit button for the new thumbnail
+        var editButton = Dom.createElement('button', {class: 'close', 'data-id': nextId, type: 'button'});
+        editButton.innerHTML = '<svg class="st-icon" role="img" style="height:1em;width:1em;"><use xlink:href="sir-trevor-icons.svg#edit"></use></svg>';
+        editButton.addEventListener('click', function(){
+          configureEditModal('editModal',itemData,function(editedData){
+            var currentData = _.find(itemList, {'id': nextId});
+            _.merge(currentData, editedData);
+          });
+          $('#editModal').modal('show');
+        });
         // Create the thumbnail itself and append the remove button
         var thumbnail = Dom.createElement('div', {class: 'col-lg-4 col-md-4 thumb'});
         thumbnail.innerHTML = '<div class="thumbnail">' +
                               '  <img class="img-responsive" src="' + data.result.files[0].thumbnailUrl+ '">' +
                               '</div>';
+        thumbnail.insertBefore(editButton, thumbnail.firstChild);
         thumbnail.insertBefore(removeButton, thumbnail.firstChild);
         // Append the thumbnail to the image list
         var imageList = this.inner.querySelector('.image-list');
