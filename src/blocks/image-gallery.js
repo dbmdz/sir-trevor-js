@@ -78,7 +78,6 @@ module.exports = Block.extend({
         itemList.push(itemData);
         // Create the remove button for the new thumbnail
         var removeButton = Dom.createElement('button', {class: 'close', 'data-id': nextId, type: 'button'});
-        //removeButton.innerHTML = '<span aria-hidden="true">×</span><span class="sr-only">Close</span>';
         removeButton.innerHTML = '<svg class="st-icon" role="img"><use xlink:href="sir-trevor-icons.svg#cross"></use></svg>';
         removeButton.addEventListener('click', function(){
           _.remove(this, function(item){
