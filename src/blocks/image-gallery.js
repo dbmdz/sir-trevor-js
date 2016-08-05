@@ -31,16 +31,16 @@ module.exports = Block.extend({
     var itemList = data['item-list'];
     itemList.forEach(function(item){
       // Create the remove button for the current thumbnail
-      var removeButton = Dom.createElement('button', {class: 'close', 'data-id': item['id'], type: 'button'});
+      var removeButton = Dom.createElement('button', {class: 'close', type: 'button'});
       removeButton.innerHTML = '<svg class="st-icon" role="img"><use xlink:href="sir-trevor-icons.svg#cross"></use></svg>';
       removeButton.addEventListener('click', function(){
         _.remove(this, function(item){
-          return item.id === parseInt(removeButton.getAttribute('data-id'))
+          return item.id === parseInt(removeButton.parentNode.getAttribute('data-id'))
         });
         removeButton.parentNode.parentNode.removeChild(removeButton.parentNode);
       }.bind(this));
       // Create the edit button for the current thumbnail
-      var editButton = Dom.createElement('button', {class: 'close edit', 'data-id': item['id'], type: 'button'});
+      var editButton = Dom.createElement('button', {class: 'close edit', type: 'button'});
       editButton.innerHTML = '<svg class="st-icon" role="img"><use xlink:href="sir-trevor-icons.svg#edit"></use></svg>';
       editButton.addEventListener('click', function(){
         configureEditModal('editModal',item,function(editedData){
@@ -49,7 +49,7 @@ module.exports = Block.extend({
         $('#editModal').modal('show');
       });
       // Create the thumbnail itself and append the remove button
-      thumbnail = Dom.createElement('div', {class: 'col-lg-4 col-md-4 thumbnail'});
+      thumbnail = Dom.createElement('div', {class: 'col-lg-4 col-md-4 thumbnail', 'data-id': item.id});
       thumbnail.innerHTML = '<img class="img-responsive" src="http://localhost:3000/uploads/thumbnail/' + item['image-id'] + '">';
       thumbnail.insertBefore(editButton, thumbnail.firstChild);
       thumbnail.insertBefore(removeButton, thumbnail.firstChild);
@@ -75,16 +75,16 @@ module.exports = Block.extend({
         };
         itemList.push(itemData);
         // Create the remove button for the new thumbnail
-        var removeButton = Dom.createElement('button', {class: 'close', 'data-id': nextId, type: 'button'});
+        var removeButton = Dom.createElement('button', {class: 'close', type: 'button'});
         removeButton.innerHTML = '<svg class="st-icon" role="img"><use xlink:href="sir-trevor-icons.svg#cross"></use></svg>';
         removeButton.addEventListener('click', function(){
           _.remove(this, function(item){
-            return item.id === parseInt(removeButton.getAttribute('data-id'))
+            return item.id === parseInt(removeButton.parentNode.getAttribute('data-id'))
           });
           removeButton.parentNode.parentNode.removeChild(removeButton.parentNode);
         }.bind(itemList));
         // Create the edit button for the new thumbnail
-        var editButton = Dom.createElement('button', {class: 'close edit', 'data-id': nextId, type: 'button'});
+        var editButton = Dom.createElement('button', {class: 'close edit', type: 'button'});
         editButton.innerHTML = '<svg class="st-icon" role="img"><use xlink:href="sir-trevor-icons.svg#edit"></use></svg>';
         editButton.addEventListener('click', function(){
           configureEditModal('editModal',itemData,function(editedData){
@@ -94,7 +94,7 @@ module.exports = Block.extend({
           $('#editModal').modal('show');
         });
         // Create the thumbnail itself and append the remove button
-        var thumbnail = Dom.createElement('div', {class: 'col-lg-4 col-md-4 thumbnail'});
+        var thumbnail = Dom.createElement('div', {class: 'col-lg-4 col-md-4 thumbnail', 'data-id': nextId});
         thumbnail.innerHTML = '<img class="img-responsive" src="' + data.result.files[0].thumbnailUrl+ '">';
         thumbnail.insertBefore(editButton, thumbnail.firstChild);
         thumbnail.insertBefore(removeButton, thumbnail.firstChild);
