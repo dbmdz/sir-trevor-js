@@ -49,10 +49,8 @@ module.exports = Block.extend({
         $('#editModal').modal('show');
       });
       // Create the thumbnail itself and append the remove button
-      thumbnail = Dom.createElement('div', {class: 'col-lg-4 col-md-4 thumb'});
-      thumbnail.innerHTML = '<div class="thumbnail">' +
-                            '  <img class="img-responsive" src="http://localhost:3000/uploads/thumbnail/' + item['image-id'] + '">' +
-                            '</div>';
+      thumbnail = Dom.createElement('div', {class: 'col-lg-4 col-md-4 thumbnail'});
+      thumbnail.innerHTML = '<img class="img-responsive" src="http://localhost:3000/uploads/thumbnail/' + item['image-id'] + '">';
       thumbnail.insertBefore(editButton, thumbnail.firstChild);
       thumbnail.insertBefore(removeButton, thumbnail.firstChild);
       // Append the thumbnail to the image list
@@ -96,10 +94,8 @@ module.exports = Block.extend({
           $('#editModal').modal('show');
         });
         // Create the thumbnail itself and append the remove button
-        var thumbnail = Dom.createElement('div', {class: 'col-lg-4 col-md-4 thumb'});
-        thumbnail.innerHTML = '<div class="thumbnail">' +
-                              '  <img class="img-responsive" src="' + data.result.files[0].thumbnailUrl+ '">' +
-                              '</div>';
+        var thumbnail = Dom.createElement('div', {class: 'col-lg-4 col-md-4 thumbnail'});
+        thumbnail.innerHTML = '<img class="img-responsive" src="' + data.result.files[0].thumbnailUrl+ '">';
         thumbnail.insertBefore(editButton, thumbnail.firstChild);
         thumbnail.insertBefore(removeButton, thumbnail.firstChild);
         // Append the thumbnail to the image list
