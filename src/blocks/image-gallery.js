@@ -32,7 +32,7 @@ module.exports = Block.extend({
     itemList.forEach(function(item){
       // Create the remove button for the current thumbnail
       var removeButton = Dom.createElement('button', {class: 'close', 'data-id': item['id'], type: 'button'});
-      removeButton.innerHTML = '<svg class="st-icon" role="img" style="height:1em;width:1em;"><use xlink:href="sir-trevor-icons.svg#cross"></use></svg>';
+      removeButton.innerHTML = '<svg class="st-icon" role="img"><use xlink:href="sir-trevor-icons.svg#cross"></use></svg>';
       removeButton.addEventListener('click', function(){
         _.remove(this, function(item){
           return item.id === parseInt(removeButton.getAttribute('data-id'))
@@ -40,8 +40,8 @@ module.exports = Block.extend({
         removeButton.parentNode.parentNode.removeChild(removeButton.parentNode);
       }.bind(this));
       // Create the edit button for the current thumbnail
-      var editButton = Dom.createElement('button', {class: 'close', 'data-id': item['id'], type: 'button'});
-      editButton.innerHTML = '<svg class="st-icon" role="img" style="height:1em;width:1em;"><use xlink:href="sir-trevor-icons.svg#edit"></use></svg>';
+      var editButton = Dom.createElement('button', {class: 'close edit', 'data-id': item['id'], type: 'button'});
+      editButton.innerHTML = '<svg class="st-icon" role="img"><use xlink:href="sir-trevor-icons.svg#edit"></use></svg>';
       editButton.addEventListener('click', function(){
         configureEditModal('editModal',item,function(editedData){
           _.merge(item, editedData);
@@ -79,7 +79,7 @@ module.exports = Block.extend({
         // Create the remove button for the new thumbnail
         var removeButton = Dom.createElement('button', {class: 'close', 'data-id': nextId, type: 'button'});
         //removeButton.innerHTML = '<span aria-hidden="true">×</span><span class="sr-only">Close</span>';
-        removeButton.innerHTML = '<svg class="st-icon" role="img" style="height:1em;width:1em;"><use xlink:href="sir-trevor-icons.svg#cross"></use></svg>';
+        removeButton.innerHTML = '<svg class="st-icon" role="img"><use xlink:href="sir-trevor-icons.svg#cross"></use></svg>';
         removeButton.addEventListener('click', function(){
           _.remove(this, function(item){
             return item.id === parseInt(removeButton.getAttribute('data-id'))
@@ -87,8 +87,8 @@ module.exports = Block.extend({
           removeButton.parentNode.parentNode.removeChild(removeButton.parentNode);
         }.bind(itemList));
         // Create the edit button for the new thumbnail
-        var editButton = Dom.createElement('button', {class: 'close', 'data-id': nextId, type: 'button'});
-        editButton.innerHTML = '<svg class="st-icon" role="img" style="height:1em;width:1em;"><use xlink:href="sir-trevor-icons.svg#edit"></use></svg>';
+        var editButton = Dom.createElement('button', {class: 'close edit', 'data-id': nextId, type: 'button'});
+        editButton.innerHTML = '<svg class="st-icon" role="img"><use xlink:href="sir-trevor-icons.svg#edit"></use></svg>';
         editButton.addEventListener('click', function(){
           configureEditModal('editModal',itemData,function(editedData){
             var currentData = _.find(itemList, {'id': nextId});
