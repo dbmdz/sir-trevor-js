@@ -44,13 +44,15 @@ module.exports = Block.extend({
       editButton.innerHTML = '<svg class="st-icon" role="img"><use xlink:href="sir-trevor-icons.svg#edit"></use></svg>';
       editButton.addEventListener('click', function(){
         configureEditModal('editModal',item,function(editedData){
+          this.title = 'de: ' + (editedData.text.de || '-') + ' | en: ' + (editedData.text.en || '-');
           _.merge(item, editedData);
-        });
+        }.bind(this.parentNode));
         $('#editModal').modal('show');
       });
       // Create the thumbnail itself and append the remove button
       thumbnail = Dom.createElement('div', {class: 'col-lg-4 col-md-4 thumbnail', 'data-id': item.id});
       thumbnail.innerHTML = '<img class="img-responsive" src="http://localhost:3000/uploads/thumbnail/' + item['image-id'] + '">';
+      thumbnail.title = 'de: ' + (item.text.de || '-') + ' | en: ' + (item.text.en || '-');
       thumbnail.insertBefore(editButton, thumbnail.firstChild);
       thumbnail.insertBefore(removeButton, thumbnail.firstChild);
       // Append the thumbnail to the image list
@@ -90,12 +92,14 @@ module.exports = Block.extend({
           configureEditModal('editModal',itemData,function(editedData){
             var currentData = _.find(itemList, {'id': nextId});
             _.merge(currentData, editedData);
-          });
+            this.title = 'de: ' + (editedData.text.de || '-') + ' | en: ' + (editedData.text.en || '-');
+          }.bind(this.parentNode));
           $('#editModal').modal('show');
         });
         // Create the thumbnail itself and append the remove button
         var thumbnail = Dom.createElement('div', {class: 'col-lg-4 col-md-4 thumbnail', 'data-id': nextId});
         thumbnail.innerHTML = '<img class="img-responsive" src="' + data.result.files[0].thumbnailUrl+ '">';
+        thumbnail.title = 'de: ' + (itemData.text.de || '-') + ' | en: ' + (itemData.text.en || '-');
         thumbnail.insertBefore(editButton, thumbnail.firstChild);
         thumbnail.insertBefore(removeButton, thumbnail.firstChild);
         // Append the thumbnail to the image list
