@@ -13,8 +13,12 @@ module.exports = Block.extend({
     var blockId = this.blockID;
     return '<div class="imageBlock">' +
            '<div class="imageUpload">' +
-           '  <a class="btn btn-primary btn-xs open-gallery-upload-modal">Bild hinzufügen</a>' +
-           '  <div class="container-fluid"><div class="row image-list"></div></div>' +
+           '  <label>Bilder:</label>' +
+           '  <div class="container-fluid"><div class="row image-list">' +
+           '    <div class="col-lg-4 col-md-4 thumbnail">' +
+           '      <svg class="st-icon open-gallery-upload-modal" role="img"><use xlink:href="sir-trevor-icons.svg#plus"></use></svg>' +
+           '    </div>' +
+           '  </div></div>' +
            '</div>' +
            '<div class="imageFormatting">' +
            '  <input type="checkbox" name="' + blockId + '-normalize-height" data-name="normalize-height" />' +
@@ -56,7 +60,7 @@ module.exports = Block.extend({
       thumbnail.insertBefore(editButton, thumbnail.firstChild);
       thumbnail.insertBefore(removeButton, thumbnail.firstChild);
       // Append the thumbnail to the image list
-      imageList.appendChild(thumbnail);
+      imageList.insertBefore(thumbnail, imageList.lastElementChild);
     },itemList);
   },
 
@@ -104,7 +108,7 @@ module.exports = Block.extend({
         thumbnail.insertBefore(removeButton, thumbnail.firstChild);
         // Append the thumbnail to the image list
         var imageList = this.inner.querySelector('.image-list');
-        imageList.appendChild(thumbnail);
+        imageList.insertBefore(thumbnail, imageList.lastElementChild);
       }.bind(this));
       $('#galleryUploadModal').modal('show');
     }.bind(this));
