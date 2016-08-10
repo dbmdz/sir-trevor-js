@@ -298,3 +298,28 @@ ul.st-text-block {
 .st-msg--error {
   color: $error-color;
 }
+
+.st-block[data-type="image_gallery"] div.imageUpload {
+  .thumbnail {
+    height: 100px;
+
+    .open-gallery-upload-modal {
+      transform: scale(0.3);
+    }
+
+    button.close {
+      height: 1em;
+      width: 1em;
+      position: absolute;
+      right: 0;
+    }
+
+    button.edit {
+      top: 1em;
+    }
+
+    img {
+      max-height: 90%;
+    }
+  }
+}
