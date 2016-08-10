@@ -2,6 +2,7 @@
 
 var Dom = require('../packages/dom');
 var Block = require('../block');
+var config = require('../config');
 
 module.exports = Block.extend({
 
@@ -16,7 +17,7 @@ module.exports = Block.extend({
            '  <label>Bilder:</label>' +
            '  <div class="container-fluid"><div class="row image-list">' +
            '    <div class="col-lg-4 col-md-4 thumbnail">' +
-           '      <svg class="st-icon open-gallery-upload-modal" role="img"><use xlink:href="sir-trevor-icons.svg#plus"></use></svg>' +
+           '      <svg class="st-icon open-gallery-upload-modal" role="img"><use xlink:href="' + config.defaults.iconUrl + '#plus"></use></svg>' +
            '    </div>' +
            '  </div></div>' +
            '</div>' +
@@ -36,7 +37,7 @@ module.exports = Block.extend({
     itemList.forEach(function(item){
       // Create the remove button for the current thumbnail
       var removeButton = Dom.createElement('button', {class: 'close', type: 'button'});
-      removeButton.innerHTML = '<svg class="st-icon" role="img"><use xlink:href="sir-trevor-icons.svg#cross"></use></svg>';
+      removeButton.innerHTML = '<svg class="st-icon" role="img"><use xlink:href="' + config.defaults.iconUrl + '#cross"></use></svg>';
       removeButton.addEventListener('click', function(){
         _.remove(this, function(item){
           return item.id === parseInt(removeButton.parentNode.getAttribute('data-id'))
@@ -45,7 +46,7 @@ module.exports = Block.extend({
       }.bind(this));
       // Create the edit button for the current thumbnail
       var editButton = Dom.createElement('button', {class: 'close edit', type: 'button'});
-      editButton.innerHTML = '<svg class="st-icon" role="img"><use xlink:href="sir-trevor-icons.svg#edit"></use></svg>';
+      editButton.innerHTML = '<svg class="st-icon" role="img"><use xlink:href="' + config.defaults.iconUrl + '#edit"></use></svg>';
       editButton.addEventListener('click', function(){
         configureEditModal('editModal',item,function(editedData){
           this.title = 'de: ' + (editedData.text.de || '-') + ' | en: ' + (editedData.text.en || '-');
@@ -68,6 +69,7 @@ module.exports = Block.extend({
     if(this.getBlockData()['item-list'] === undefined){
       this.setData({'item-list':[]});
     }
+    //$('.image-list').sortable();
     this.inner.querySelector('.open-gallery-upload-modal').addEventListener('click', function (ev) {
       configureUploadModal('galleryUploadModal', function(data){
         var itemList = this.getData().data['item-list'];
@@ -82,7 +84,7 @@ module.exports = Block.extend({
         itemList.push(itemData);
         // Create the remove button for the new thumbnail
         var removeButton = Dom.createElement('button', {class: 'close', type: 'button'});
-        removeButton.innerHTML = '<svg class="st-icon" role="img"><use xlink:href="sir-trevor-icons.svg#cross"></use></svg>';
+        removeButton.innerHTML = '<svg class="st-icon" role="img"><use xlink:href="' + config.defaults.iconUrl + '#cross"></use></svg>';
         removeButton.addEventListener('click', function(){
           _.remove(this, function(item){
             return item.id === parseInt(removeButton.parentNode.getAttribute('data-id'))
@@ -91,7 +93,7 @@ module.exports = Block.extend({
         }.bind(itemList));
         // Create the edit button for the new thumbnail
         var editButton = Dom.createElement('button', {class: 'close edit', type: 'button'});
-        editButton.innerHTML = '<svg class="st-icon" role="img"><use xlink:href="sir-trevor-icons.svg#edit"></use></svg>';
+        editButton.innerHTML = '<svg class="st-icon" role="img"><use xlink:href="' + config.defaults.iconUrl + '#edit"></use></svg>';
         editButton.addEventListener('click', function(){
           configureEditModal('editModal',itemData,function(editedData){
             var currentData = _.find(itemList, {'id': nextId});
