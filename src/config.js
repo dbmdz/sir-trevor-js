@@ -111,28 +111,28 @@ module.exports = {
         {
           name: "Person",
           title: "person",
-          iconName: "user",
+          iconName: "person",
           cmd: "person-link",
           text: "person"
         },
         {
           name: "Article",
           title: "Article",
-          iconName: "user",
+          iconName: "bavarikon",
           cmd: "article-link",
           text: "article"
         },
         {
           name: "Place",
           title: "place",
-          iconName: "user",
+          iconName: "place",
           cmd: "place-link",
           text: "place"
         },
         {
           name: "BavObject",
           title: "bavobject",
-          iconName: "user",
+          iconName: "bavobject",
           cmd: "bavobject-link",
           text: "bavobject"
         }
