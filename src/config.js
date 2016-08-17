@@ -107,6 +107,34 @@ module.exports = {
           iconName: "fmt-quote",
           cmd: "quote",
           text: "quote"
+        },
+        {
+          name: "Person",
+          title: "person",
+          iconName: "user",
+          cmd: "person-link",
+          text: "person"
+        },
+        {
+          name: "Article",
+          title: "Article",
+          iconName: "user",
+          cmd: "article-link",
+          text: "article"
+        },
+        {
+          name: "Place",
+          title: "place",
+          iconName: "user",
+          cmd: "place-link",
+          text: "place"
+        },
+        {
+          name: "BavObject",
+          title: "bavobject",
+          iconName: "user",
+          cmd: "bavobject-link",
+          text: "bavobject"
         }
       ],
     },
