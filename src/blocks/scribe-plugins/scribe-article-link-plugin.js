@@ -1,14 +1,29 @@
-"use strict";
+'use strict';
 
-var scribeArticleLinkPlugin = function() {
-  return function(scribe) {
+var scribeArticleLinkPlugin = function(){
+  return function(scribe){
     var articleLinkCommand = new scribe.api.Command('article-link');
     articleLinkCommand.nodeName = 'A';
 
     articleLinkCommand.execute = function articleLinkCommandExecute(){
-      showAutocompleteModal({
+      var selection = new scribe.api.Selection().selection.toString();
+      showAutocompleteModal(selection, {
         entityName: 'bavarikon',
-        title: "Artikelwahl",
+        remoteDef: {
+          url: '/api/pages?q=%QUERY',
+          filter: function(parsedResponse){
+            return _.map(parsedResponse, function(entry){
+              return {
+                value: entry.title + ' (' + entry.type + ')',
+                url: '/cms/' + entry.type + '/' + entry.id
+              };
+            });
+          },
+          ajax: {
+            dataType: 'json'
+          }
+        },
+        title: 'Artikelwahl',
       });
     };
 

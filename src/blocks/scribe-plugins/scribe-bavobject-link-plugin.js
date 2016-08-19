@@ -1,14 +1,29 @@
-"use strict";
+'use strict';
 
-var scribeBavObjectLinkPlugin = function() {
-  return function(scribe) {
+var scribeBavObjectLinkPlugin = function(){
+  return function(scribe){
     var bavObjectLinkCommand = new scribe.api.Command('bavobject-link');
     bavObjectLinkCommand.nodeName = 'A';
 
     bavObjectLinkCommand.execute = function bavObjectLinkCommandExecute(){
-      showAutocompleteModal({
+      var selection = new scribe.api.Selection().selection.toString();
+      showAutocompleteModal(selection, {
         entityName: 'bavobject',
-        title: "Kulturobjekt wählen",
+        remoteDef: {
+          url: '/api/artifacts?q=%QUERY',
+          filter: function(parsedResponse){
+            return _.map(parsedResponse, function(entry){
+              return {
+                value: entry.title,
+                url: '/object/' + entry.id
+              };
+            });
+          },
+          ajax: {
+            dataType: 'json'
+          }
+        },
+        title: 'Kulturobjekt wählen',
       });
     };
 
