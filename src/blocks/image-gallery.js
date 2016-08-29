@@ -24,7 +24,7 @@ module.exports = Block.extend({
            '<div class="imageFormatting">' +
            '  <input type="checkbox" name="' + blockId + '-normalize-height" data-name="normalize-height" />' +
            '  Bildhöhe auf' +
-           '  <input class="normalized-height" type="text" name="' + blockId + '-height" data-name="height"/> Pixel vereinheitlichen' +
+           '  <input class="normalized-height" type="text" name="' + blockId + '-height" data-name="height" disabled/> Pixel vereinheitlichen' +
            '</div>' +
            '</div>';
   },
