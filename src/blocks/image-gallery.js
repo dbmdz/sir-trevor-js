@@ -114,5 +114,8 @@ module.exports = Block.extend({
       }.bind(this));
       $('#galleryUploadModal').modal('show');
     }.bind(this));
+    this.inner.querySelector('input[type="checkbox"][data-name="normalize-height"]').addEventListener('click', function (ev) {
+      this.nextElementSibling.disabled = this.checked ? false : true;
+    });
   }
 });
