@@ -299,27 +299,29 @@ ul.st-text-block {
   color: $error-color;
 }
 
-.st-block[data-type="image_gallery"] div.imageUpload {
-  .thumbnail {
-    height: 100px;
+.st-block[data-type="image_gallery"] {
+  div.imageUpload {
+    .thumbnail {
+      height: 100px;
 
-    .open-gallery-upload-modal {
-      transform: scale(0.3);
-    }
+      .open-gallery-upload-modal {
+        transform: scale(0.3);
+      }
 
-    button.close {
-      height: 1em;
-      width: 1em;
-      position: absolute;
-      right: 0;
-    }
+      button.close {
+        height: 1em;
+        width: 1em;
+        position: absolute;
+        right: 0;
+      }
 
-    button.edit {
-      top: 1em;
-    }
+      button.edit {
+        top: 1em;
+      }
 
-    img {
-      max-height: 90%;
+      img {
+        max-height: 90%;
+      }
     }
   }
 }
