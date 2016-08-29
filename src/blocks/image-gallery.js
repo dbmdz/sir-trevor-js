@@ -63,6 +63,15 @@ module.exports = Block.extend({
       // Append the thumbnail to the image list
       imageList.insertBefore(thumbnail, imageList.lastElementChild);
     },itemList);
+
+    // Set checkbox value for the normalize height option
+    if(data['normalize-height'] === 'on'){
+      this.inner.querySelector('input[name="' + this.blockID + '-normalize-height"]').checked = true;
+    }
+    // Set input value for the height
+    if(data['height']){
+      this.inner.querySelector('input[name="' + this.blockID + '-height"]').value = data['height'];
+    }
   },
 
   onBlockRender: function(){
