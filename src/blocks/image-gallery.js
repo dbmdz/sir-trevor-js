@@ -56,7 +56,7 @@ module.exports = Block.extend({
       });
       // Create the thumbnail itself and append the remove button
       thumbnail = Dom.createElement('div', {class: 'col-lg-4 col-md-4 thumbnail', 'data-id': item.id});
-      thumbnail.innerHTML = '<img class="img-responsive" src="http://localhost:3000/uploads/thumbnail/' + item['image-id'] + '">';
+      thumbnail.innerHTML = '<img class="img-responsive" src="/uploads/' + item['image-id'] + '/thumbnail">';
       thumbnail.title = 'de: ' + (item.text.de || '-') + ' | en: ' + (item.text.en || '-');
       thumbnail.insertBefore(editButton, thumbnail.firstChild);
       thumbnail.insertBefore(removeButton, thumbnail.firstChild);
