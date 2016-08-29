@@ -24,7 +24,7 @@ module.exports = Block.extend({
            '<div class="imageFormatting">' +
            '  <input type="checkbox" name="' + blockId + '-normalize-height" data-name="normalize-height" />' +
            '  Bildhöhe auf' +
-           '  <input class="normalized-height" type="text" name="' + blockId + '-height" data-name="height" disabled/> Pixel vereinheitlichen' +
+           '  <input class="normalized-height" type="text" name="' + blockId + '-height" data-name="height"/> Pixel vereinheitlichen' +
            '</div>' +
            '</div>';
   },
@@ -114,8 +114,11 @@ module.exports = Block.extend({
       }.bind(this));
       $('#galleryUploadModal').modal('show');
     }.bind(this));
-    this.inner.querySelector('input[type="checkbox"][data-name="normalize-height"]').addEventListener('click', function (ev) {
-      this.nextElementSibling.disabled = this.checked ? false : true;
+    var normalizedHeightCheckbox = this.inner.querySelector('input[type="checkbox"][data-name="normalize-height"]');
+    var normalizedHeightInput = this.inner.querySelector('input[type="text"][data-name="height"]');
+    normalizedHeightInput.disabled = normalizedHeightCheckbox.checked ? false : true;
+    normalizedHeightCheckbox.addEventListener('click', function (ev) {
+      normalizedHeightInput.disabled = this.checked ? false : true;
     });
   }
 });
