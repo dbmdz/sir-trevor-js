@@ -85,10 +85,10 @@ module.exports = Block.extend({
         var nextId = _.max(itemList, 'id').id + 1 || 1;
         var itemData = {
           'id': nextId,
-          'image-id': data.result.files[0].name,
-          'image-link': data.formData['imageLink'],
-          'text': {'de': data.formData['text[de]'], 'en': data.formData['text[en]']},
-          'text-link': data.formData['textLink']
+          'image-id': data.imageId,
+          'image-link': data.imageLink,
+          'text': {'de': data['text[de]'], 'en': data['text[en]']},
+          'text-link': data.textLink
         };
         itemList.push(itemData);
         // Create the remove button for the new thumbnail
@@ -113,7 +113,7 @@ module.exports = Block.extend({
         });
         // Create the thumbnail itself and append the remove button
         var thumbnail = Dom.createElement('div', {class: 'col-lg-4 col-md-4 thumbnail', 'data-id': nextId});
-        thumbnail.innerHTML = '<img class="img-responsive" src="' + data.result.files[0].thumbnailUrl+ '">';
+        thumbnail.innerHTML = '<img class="img-responsive" src="/uploads/' + itemData['image-id'] + '/thumbnail">';
         thumbnail.title = 'de: ' + (itemData.text.de || '-') + ' | en: ' + (itemData.text.en || '-');
         thumbnail.insertBefore(editButton, thumbnail.firstChild);
         thumbnail.insertBefore(removeButton, thumbnail.firstChild);
