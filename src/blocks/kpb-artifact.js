@@ -32,7 +32,7 @@ var viewTemplate = _.template([
       '<h5><%= title %></h5>',
       '<p class="creation-date"><%= creationDate %></p>',
       '<p class="authors"><% creationPersons.join("; ") %></p>',
-      '<p class="publishing-places"><% creationPlaces.join("; ") %></p>',
+      '<p class="publishing-places"><% creationLocations.join("; ") %></p>',
       '<p class="digital-copy"><a href="/object/<%= id %>" target="_blank">Zum Digitalisat</a></p>',
     '</div>',
   '</div>'
