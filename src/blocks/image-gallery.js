@@ -13,6 +13,11 @@ module.exports = Block.extend({
   editorHTML: function () {
     var blockId = this.blockID;
     return '<div class="imageBlock">' +
+           '<div class="imageFormatting">' +
+           '  <input type="checkbox" name="' + blockId + '-normalize-height" data-name="normalize-height" />' +
+           '  Bildhöhe auf' +
+           '  <input class="normalized-height" type="text" name="' + blockId + '-height" data-name="height"/> Pixel vereinheitlichen' +
+           '</div>' +
            '<div class="imageUpload">' +
            '  <label>Bilder:</label>' +
            '  <div class="container-fluid"><div class="row image-list">' +
@@ -20,11 +25,6 @@ module.exports = Block.extend({
            '      <svg class="st-icon open-gallery-upload-modal" role="img"><use xlink:href="' + config.defaults.iconUrl + '#plus"></use></svg>' +
            '    </div>' +
            '  </div></div>' +
-           '</div>' +
-           '<div class="imageFormatting">' +
-           '  <input type="checkbox" name="' + blockId + '-normalize-height" data-name="normalize-height" />' +
-           '  Bildhöhe auf' +
-           '  <input class="normalized-height" type="text" name="' + blockId + '-height" data-name="height"/> Pixel vereinheitlichen' +
            '</div>' +
            '</div>';
   },
