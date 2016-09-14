@@ -13,8 +13,8 @@ module.exports = Block.extend({
     var blockId = this.blockID;
     return '<div class="imageBlock">' +
            '<div class="imageUpload">' +
-           '  <a class="btn btn-primary btn-xs open-upload-modal">Bild auswählen</a> oder bekannte ID eingeben<br/>' +
-           '  <input type="text" class="js-image-id" data-name="id"/>' +
+           '  <a class="btn btn-primary btn-xs open-upload-modal">Bild auswählen</a> oder bekannte ID eingeben' +
+           '  <input type="text" pattern="[0-9]*" class="js-image-id" data-name="id"/>' +
            '</div>' +
            '<div class="imageFormatting">' +
            '  <b>Ausrichtung:</b> <input type="radio" name="' + blockId + '-position" data-name="position" value="left">links <input type="radio" name="' + blockId + '-position" data-name="position" value="right">rechts<br/>' +
