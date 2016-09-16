@@ -7,7 +7,7 @@ module.exports = {
   Heading: require('./heading'),
   List: require('./list'),
   Tweet: require('./tweet'),
-  Video: require('./video'),
+  Video: require('./video-link'),
   OrderedList: require('./ordered-list'),
   Artifact: require('./artifact'),
   KpbArtifact: require('./kpb-artifact'),
