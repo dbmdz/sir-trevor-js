@@ -12,13 +12,17 @@ module.exports = Block.extend({
   editorHTML: function () {
     var blockId = this.blockID;
     return '<div class="imageBlock">' +
-           '<div class="imageUpload">' +
+           '<div class="imageUpload row">' +
            '  <a class="btn btn-primary btn-xs open-upload-modal">Bild auswählen</a> oder bekannte ID eingeben' +
            '  <input type="text" pattern="[0-9]*" class="js-image-id" data-name="id"/>' +
            '</div>' +
-           '<div class="imageFormatting">' +
-           '  <b>Ausrichtung:</b> <input type="radio" name="' + blockId + '-position" data-name="position" value="left">links <input type="radio" name="' + blockId + '-position" data-name="position" value="right">rechts<br/>' +
-           '  <b>Breite:</b> <input type="radio" name="' + blockId + '-width" data-name="width" value="25%">25% <input type="radio" name="' + blockId + '-width" data-name="width" value="33%">33% <input type="radio" name="' + blockId + '-width" data-name="width" value="50%">50% <input type="radio" name="' + blockId + '-width" data-name="width" value="100%">100%' +
+           '<div class="imageDisplay row">' +
+           '  <div class="col-lg-8 col-md-8 imageFormatting">' +
+           '    <b>Ausrichtung:</b><input type="radio" name="' + blockId + '-position" data-name="position" value="left">links <input type="radio" name="' + blockId + '-position" data-name="position" value="right">rechts' +
+           '    <b>Breite:</b><input type="radio" name="' + blockId + '-width" data-name="width" value="25%">25% <input type="radio" name="' + blockId + '-width" data-name="width" value="33%">33% ' +
+           '    <input type="radio" name="' + blockId + '-width" data-name="width" value="50%">50% <input type="radio" name="' + blockId + '-width" data-name="width" value="100%">100%' +
+           '  </div>' +
+           '  <div class="col-lg-4 col-md-4 imagePreview"></div>' +
            '</div>' +
            '</div>';
   },
@@ -31,7 +35,8 @@ module.exports = Block.extend({
     idInput.value = data.id;
 
     // Create our image tag
-    Dom.insertAfter(Dom.createElement('img', {src: "/uploads/" + data.id + "/thumbnail", class: "thumbnail"}), idInput);
+    var imagePreview = Dom.createElement('img', {src: "/uploads/" + data.id + "/thumbnail", class: "thumbnail"});
+    this.inner.querySelector('.imagePreview').appendChild(imagePreview);
 
     // set radio button value for position
     if(data.position){
@@ -48,8 +53,9 @@ module.exports = Block.extend({
       configureUploadModal('uploadModal', function(data){
         var idInput = this.inner.querySelector('.js-image-id');
         idInput.value = data.imageId;
-        Dom.remove(this.inner.querySelector('img'));
-        Dom.insertAfter(Dom.createElement('img', {src: "/uploads/" + data.imageId + "/thumbnail", class: "thumbnail"}), idInput);
+        Dom.remove(this.inner.querySelector('.imagePreview > img'));
+        var imagePreview = Dom.createElement('img', {src: "/uploads/" + data.imageId + "/thumbnail", class: "thumbnail"});
+        this.inner.querySelector('.imagePreview').appendChild(imagePreview);
       }.bind(this));
       $('#uploadModal').modal('show');
     }.bind(this));
