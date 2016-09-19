@@ -92,7 +92,7 @@ module.exports = Block.extend({
   },
 
   fetchData: function(id) {
-    this.fetch({url: this.fetchUrl(id), dataType: "json"},
+    this.fetch(this.fetchUrl(id), {dataType: "json"},
                 this.onFetchSuccess, this.onFetchFail);
   },
 
