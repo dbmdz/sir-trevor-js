@@ -37,7 +37,6 @@ module.exports = Block.extend({
     this.inner.querySelector('.open-upload-modal').addEventListener('click', function (ev) {
       configureUploadModal('uploadModal', function(data) {
         var idInput = this.inner.querySelector('.js-artifact-preview');
-        var $input = this.$('.js-artifact-preview');
         idInput.value = data.result.files[0].name;
         Dom.remove(this.inner.querySelector('img'));
         Dom.insertAfter(Dom.createElement('img', {src: data.result.files[0].thumbnailUrl}), idInput);
