@@ -102,16 +102,16 @@ module.exports = Block.extend({
     idInput.value = data.id;
     this.inner.querySelector('.js-kpbartifact-preview-page').value = data.previewPage;
     if ( data.position === 'on' ) this.inner.querySelector('.js-kpbartifact-position').checked = true;
-    $(idInput).on('blur', function(e) {
-      Dom.remove(this.inner.querySelector('.bavobject-preview'));
-      this.fetchData(e.target.value);
-    }.bind(this));
+  },
+
+  onBlockRender: function(){
+    var idInput = this.inner.querySelector('.js-kpbartifact-id');
     $(idInput).typeahead({hint: true}, {
       name: 'kpbartifact-complete-' + this.blockID,
       displayKey: 'id',
       templates: {
         suggestion: function(datum) {
-          return '<p>' + datum.value + ' (' + datum.id + ')</p>';
+          return '<p>' + datum.title + ' (' + datum.id + ')</p>';
         }
       },
       source: searchEngine.ttAdapter()
@@ -119,5 +119,9 @@ module.exports = Block.extend({
     $(idInput).on('typeahead:selected', function() {
       $(idInput).trigger('blur');
     });
-  },
+    $(idInput).on('blur', function(e) {
+      Dom.remove(this.inner.querySelector('.bavobject-preview'));
+      this.fetchData(e.target.value);
+    }.bind(this));
+  }
 });
