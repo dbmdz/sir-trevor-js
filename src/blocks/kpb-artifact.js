@@ -9,13 +9,12 @@ var stToHTML = require('../to-html');
 var Dom = require('../packages/dom');
 
 var searchEngine = new Bloodhound({
-  name: 'articles',
+  name: 'artifacts',
   remote: {
     url: '/api/artifacts?q=%QUERY',
     filter: function(parsedResponse) {
       return _.map(parsedResponse, function(entry) {
-        return { value: entry.title,
-                 id: entry.id }
+        return { title: entry.title, id: entry.id }
       });
     },
     ajax: {dataType: 'json'}
