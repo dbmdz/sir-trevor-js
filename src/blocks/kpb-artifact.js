@@ -82,7 +82,7 @@ module.exports = Block.extend({
       var oldId = data.previewId;
       data.previewId = oldId.slice(0, oldId.length - preview.length) + preview;
     }
-    this.$inner.prepend(viewTemplate(data));
+    this.inner.insertAdjacentHTML('beforeend', viewTemplate(data));
     this.ready();
   },
 
