@@ -85,11 +85,18 @@ module.exports = Block.extend({
         var nextId = _.max(itemList, 'id').id + 1 || 1;
         var itemData = {
           'id': nextId,
-          'image-id': data.imageId,
           'image-link': data.imageLink,
           'text': {'de': data['text[de]'], 'en': data['text[en]']},
           'text-link': data.textLink
         };
+        this.resetMessages();
+        if(data.objectID !== ''){
+          itemData['object-id'] = data.objectID;
+        }else if(data.imageId !== ''){
+          itemData['image-id'] = data.imageId;
+        }else{
+          return this.addMessage('Es wurde keine ID angegeben.');
+        }
         itemList.push(itemData);
         // Create the remove button for the new thumbnail
         var removeButton = Dom.createElement('button', {class: 'close', type: 'button'});
