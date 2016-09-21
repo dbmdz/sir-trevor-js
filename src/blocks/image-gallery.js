@@ -157,7 +157,11 @@ module.exports = Block.extend({
 
     // Create the thumbnail itself and define the content and title
     var thumbnail = Dom.createElement('div', {class: 'col-lg-4 col-md-4 thumbnail', 'data-id': thumbnailId});
-    thumbnail.innerHTML = '<img class="img-responsive" src="/uploads/' + itemData['image-id'] + '/thumbnail">';
+    if(itemData['object-id']){
+      this.fetchData(itemData['object-id'], thumbnailId);
+    }else{
+      thumbnail.innerHTML = '<img class="img-responsive" src="/uploads/' + itemData['image-id'] + '/thumbnail">';
+    }
     thumbnail.title = 'de: ' + (itemData.text.de || '-') + ' | en: ' + (itemData.text.en || '-');
     // Append the remove and edit buttons to the thumbnail
     thumbnail.insertBefore(editButton, thumbnail.firstChild);
