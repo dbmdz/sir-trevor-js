@@ -30,43 +30,10 @@ module.exports = Block.extend({
   },
 
   loadData: function(data){
-    // Create the image list
-    var imageList = this.inner.querySelector('.image-list');
-    var thumbnail;
     var itemList = data['item-list'];
     itemList.forEach(function(item){
-      // Create the remove button for the current thumbnail
-      var removeButton = Dom.createElement('button', {class: 'close', type: 'button'});
-      removeButton.innerHTML = '<svg class="st-icon" role="img"><use xlink:href="' + config.defaults.iconUrl + '#cross"></use></svg>';
-      // Add a click handler for removing the corresponding thumbnail from the DOM and the block data
-      removeButton.addEventListener('click', function(){
-        _.remove(this, function(item){
-          return item.id === parseInt(removeButton.parentNode.getAttribute('data-id'))
-        });
-        removeButton.parentNode.parentNode.removeChild(removeButton.parentNode);
-      }.bind(this));
-      // Create the edit button for the current thumbnail
-      var editButton = Dom.createElement('button', {class: 'close edit', type: 'button'});
-      editButton.innerHTML = '<svg class="st-icon" role="img"><use xlink:href="' + config.defaults.iconUrl + '#edit"></use></svg>';
-      // Add a click handler for opening an edit modal
-      editButton.addEventListener('click', function(){
-        configureEditModal('editModal',item,function(editedData){
-          // Merge the existing data for the edited thumbnail with the edited data
-          _.merge(item, editedData);
-          // Update the title displayed when hovering the thumbnail
-          this.title = 'de: ' + (editedData.text.de || '-') + ' | en: ' + (editedData.text.en || '-');
-        }.bind(this.parentNode));
-        $('#editModal').modal('show');
-      });
-      // Create the thumbnail itself and append the remove button
-      thumbnail = Dom.createElement('div', {class: 'col-lg-4 col-md-4 thumbnail', 'data-id': item.id});
-      thumbnail.innerHTML = '<img class="img-responsive" src="/uploads/' + item['image-id'] + '/thumbnail">';
-      thumbnail.title = 'de: ' + (item.text.de || '-') + ' | en: ' + (item.text.en || '-');
-      thumbnail.insertBefore(editButton, thumbnail.firstChild);
-      thumbnail.insertBefore(removeButton, thumbnail.firstChild);
-      // Append the thumbnail to the image list
-      imageList.insertBefore(thumbnail, imageList.lastElementChild);
-    },itemList);
+      this.appendThumbnail(item, itemList);
+    }, this);
 
     // Set checkbox value for the normalize height option
     if(data['normalize-height'] === 'on'){
@@ -107,39 +74,7 @@ module.exports = Block.extend({
           return this.addMessage('Es wurde keine ID angegeben.');
         }
         itemList.push(itemData);
-        // Create the remove button for the new thumbnail
-        var removeButton = Dom.createElement('button', {class: 'close', type: 'button'});
-        removeButton.innerHTML = '<svg class="st-icon" role="img"><use xlink:href="' + config.defaults.iconUrl + '#cross"></use></svg>';
-        // Add a click handler for removing the corresponding thumbnail from the DOM and the block data
-        removeButton.addEventListener('click', function(){
-          _.remove(this, function(item){
-            return item.id === parseInt(removeButton.parentNode.getAttribute('data-id'))
-          });
-          removeButton.parentNode.parentNode.removeChild(removeButton.parentNode);
-        }.bind(itemList));
-        // Create the edit button for the new thumbnail
-        var editButton = Dom.createElement('button', {class: 'close edit', type: 'button'});
-        editButton.innerHTML = '<svg class="st-icon" role="img"><use xlink:href="' + config.defaults.iconUrl + '#edit"></use></svg>';
-        // Add a click handler for opening an edit modal
-        editButton.addEventListener('click', function(){
-          configureEditModal('editModal',itemData,function(editedData){
-            // Load the existing data for the edited thumbnail and merged it with the edited data
-            var currentData = _.find(itemList, {'id': nextId});
-            _.merge(currentData, editedData);
-            // Update the title displayed when hovering the thumbnail
-            this.title = 'de: ' + (editedData.text.de || '-') + ' | en: ' + (editedData.text.en || '-');
-          }.bind(this.parentNode));
-          $('#editModal').modal('show');
-        });
-        // Create the thumbnail itself and append the remove and edit buttons
-        var thumbnail = Dom.createElement('div', {class: 'col-lg-4 col-md-4 thumbnail', 'data-id': nextId});
-        thumbnail.innerHTML = '<img class="img-responsive" src="/uploads/' + itemData['image-id'] + '/thumbnail">';
-        thumbnail.title = 'de: ' + (itemData.text.de || '-') + ' | en: ' + (itemData.text.en || '-');
-        thumbnail.insertBefore(editButton, thumbnail.firstChild);
-        thumbnail.insertBefore(removeButton, thumbnail.firstChild);
-        // Append the thumbnail to the image list
-        var imageList = this.inner.querySelector('.image-list');
-        imageList.insertBefore(thumbnail, imageList.lastElementChild);
+        this.appendThumbnail(itemData, itemList, nextId);
       }.bind(this));
       $('#galleryUploadModal').modal('show');
     }.bind(this));
@@ -151,5 +86,46 @@ module.exports = Block.extend({
     normalizedHeightCheckbox.addEventListener('click', function (ev) {
       normalizedHeightInput.disabled = this.checked ? false : true;
     });
+  },
+
+  appendThumbnail: function(itemData, itemList, id){
+    /* Determine the internal thumbnail id
+     * Either it is already stored in the block data or is must be given as parameter
+     */
+    var thumbnailId = itemData.id || id;
+
+    // Create the remove button for the new thumbnail
+    var removeButton = Dom.createElement('button', {class: 'close', type: 'button'});
+    removeButton.innerHTML = '<svg class="st-icon" role="img"><use xlink:href="' + config.defaults.iconUrl + '#cross"></use></svg>';
+    // Add a click handler for removing the corresponding thumbnail from the DOM and the block data
+    removeButton.addEventListener('click', function(){
+      _.remove(this, function(item){
+        return item.id === parseInt(removeButton.parentNode.getAttribute('data-id'))
+      });
+      removeButton.parentNode.parentNode.removeChild(removeButton.parentNode);
+    }.bind(itemList));
+
+    // Create the edit button for the new thumbnail
+    var editButton = Dom.createElement('button', {class: 'close edit', type: 'button'});
+    editButton.innerHTML = '<svg class="st-icon" role="img"><use xlink:href="' + config.defaults.iconUrl + '#edit"></use></svg>';
+    // Add a click handler for opening an edit modal
+    editButton.addEventListener('click', function(){
+      configureEditModal('editModal',itemData,function(editedData){
+        _.merge(itemData, editedData);
+        this.title = 'de: ' + (editedData.text.de || '-') + ' | en: ' + (editedData.text.en || '-');
+      }.bind(this.parentNode));
+      $('#editModal').modal('show');
+    });
+
+    // Create the thumbnail itself and define the content and title
+    var thumbnail = Dom.createElement('div', {class: 'col-lg-4 col-md-4 thumbnail', 'data-id': thumbnailId});
+    thumbnail.innerHTML = '<img class="img-responsive" src="/uploads/' + itemData['image-id'] + '/thumbnail">';
+    thumbnail.title = 'de: ' + (itemData.text.de || '-') + ' | en: ' + (itemData.text.en || '-');
+    // Append the remove and edit buttons to the thumbnail
+    thumbnail.insertBefore(editButton, thumbnail.firstChild);
+    thumbnail.insertBefore(removeButton, thumbnail.firstChild);
+    // Append the thumbnail to the image list
+    var imageList = this.inner.querySelector('.image-list');
+    imageList.insertBefore(thumbnail, imageList.lastElementChild);
   }
 });
