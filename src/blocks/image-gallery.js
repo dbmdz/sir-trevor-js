@@ -7,8 +7,8 @@ var config = require('../config');
 module.exports = Block.extend({
 
   type: "image_gallery",
-
   icon_name: 'images',
+  fetchable: true,
 
   editorHTML: function () {
     var blockId = this.blockID;
@@ -86,6 +86,44 @@ module.exports = Block.extend({
     normalizedHeightCheckbox.addEventListener('click', function (ev) {
       normalizedHeightInput.disabled = this.checked ? false : true;
     });
+  },
+
+  fetchUrl: function(id){
+    if(id.slice(0, 3) === 'bsb'){
+      id = 'BSB-MDZ-00000BSB' + id.slice(3);
+    }
+    return '/api/artifacts/' + id;
+  },
+
+  onFetchSuccess: function(data){
+    /*var preview = this.inner.querySelector('.js-kpbartifact-preview-page').value;
+    if (!_.isEmpty(preview)) {
+      var oldId = data.previewId;
+      data.previewId = oldId.slice(0, oldId.length - preview.length) + preview;
+    }*/
+    var thumbnail = this.block.inner.querySelector('div[data-id="' + this.id + '"]');
+    var objectImage = Dom.createElement('img', {src: '/iiif/' + data.previewId + '/full/200,/0/native.jpg'});
+    thumbnail.appendChild(objectImage);
+    this.block.ready();
+  },
+
+  onFetchFail: function(){
+    var itemList = this.block.getData().data['item-list'];
+    _.remove(itemList, function(item){
+      return item.id === this
+    }.bind(this.id));
+    Dom.remove(this.block.inner.querySelector('div[data-id="' + this.id + '"]'));
+    this.block.addMessage("Objekt konnte nicht geladen werden.");
+    this.block.ready();
+  },
+
+  fetchData: function(objectID, thumbnailId){
+    this.resetMessages();
+    this.fetch(
+      this.fetchUrl(objectID), { dataType: 'json' },
+      this.onFetchSuccess.bind({ block: this, id: thumbnailId }),
+      this.onFetchFail.bind({ block: this, id: thumbnailId })
+    );
   },
 
   appendThumbnail: function(itemData, itemList, id){
