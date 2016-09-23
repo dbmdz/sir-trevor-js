@@ -96,11 +96,6 @@ module.exports = Block.extend({
   },
 
   onFetchSuccess: function(data){
-    /*var preview = this.inner.querySelector('.js-kpbartifact-preview-page').value;
-    if (!_.isEmpty(preview)) {
-      var oldId = data.previewId;
-      data.previewId = oldId.slice(0, oldId.length - preview.length) + preview;
-    }*/
     var thumbnail = this.block.inner.querySelector('div[data-id="' + this.id + '"]');
     var objectImage = Dom.createElement('img', {src: '/iiif/' + data.previewId + '/full/200,/0/native.jpg'});
     thumbnail.appendChild(objectImage);
