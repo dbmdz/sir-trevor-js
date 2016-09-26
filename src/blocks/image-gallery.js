@@ -106,8 +106,9 @@ module.exports = Block.extend({
   },
 
   onFetchFail: function(){
-    // Get the item list of this block and remove the previous inserted item again from the list
+    // Get the item list of this block
     var itemList = this.block.getData().data['item-list'];
+    // Remove the previous inserted item again from the list
     _.remove(itemList, function(item){
       return item.id === this
     }.bind(this.id));
