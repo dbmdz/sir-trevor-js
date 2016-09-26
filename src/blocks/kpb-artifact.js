@@ -110,7 +110,11 @@ module.exports = Block.extend({
       name: 'kpbartifact-complete-' + this.blockID,
       displayKey: 'id',
       templates: {
-        suggestion: function(datum) {
+        suggestion: function(datum){
+          var pageExtensionPosition = datum.id.lastIndexOf('@');
+          if(pageExtensionPosition !== -1){
+            datum.id = datum.id.slice(0, pageExtensionPosition);
+          }
           return '<p>' + datum.title + ' (' + datum.id + ')</p>';
         }
       },
