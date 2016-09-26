@@ -30,6 +30,7 @@ module.exports = Block.extend({
   },
 
   loadData: function(data){
+    // Load the list of items and appand a thumbnail for each one to the view
     var itemList = data['item-list'];
     itemList.forEach(function(item){
       this.appendThumbnail(item, itemList);
@@ -96,24 +97,31 @@ module.exports = Block.extend({
   },
 
   onFetchSuccess: function(data){
+    // Get the thumbnail corresponding to the given id
     var thumbnail = this.block.inner.querySelector('div[data-id="' + this.id + '"]');
+    // Create the image tag and append it to the thumbnail div
     var objectImage = Dom.createElement('img', {src: '/iiif/' + data.previewId + '/full/200,/0/native.jpg'});
     thumbnail.appendChild(objectImage);
     this.block.ready();
   },
 
   onFetchFail: function(){
+    // Get the item list of this block and remove the previous inserted item again from the list
     var itemList = this.block.getData().data['item-list'];
     _.remove(itemList, function(item){
       return item.id === this
     }.bind(this.id));
+    // Remove the thumbnail again from the view
     Dom.remove(this.block.inner.querySelector('div[data-id="' + this.id + '"]'));
+    // Display an error message
     this.block.addMessage("Objekt konnte nicht geladen werden.");
     this.block.ready();
   },
 
   fetchData: function(objectID, thumbnailId){
+    // Remove any error messages
     this.resetMessages();
+    // Fetch information on the object
     this.fetch(
       this.fetchUrl(objectID), { dataType: 'json' },
       this.onFetchSuccess.bind({ block: this, id: thumbnailId }),
