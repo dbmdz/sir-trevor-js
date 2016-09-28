@@ -18,7 +18,8 @@ var sanitizeDefaults = {
     href: true,
     target: '_blank',
     rel: true,
-    title: true
+    title: true,
+    class: true
   },
   i: true,
   b: true,
