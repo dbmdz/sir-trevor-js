@@ -141,10 +141,32 @@ module.exports = Block.extend({
     removeButton.innerHTML = '<svg class="st-icon" role="img"><use xlink:href="' + config.defaults.iconUrl + '#cross"></use></svg>';
     // Add a click handler for removing the corresponding thumbnail from the DOM and the block data
     removeButton.addEventListener('click', function(){
-      _.remove(this, function(item){
-        return item.id === parseInt(removeButton.parentNode.getAttribute('data-id'))
+      // Show a dialog to confirm, that the thumbnail should really be removed from the gallery
+      BootstrapDialog.show({
+        title: 'Warnung',
+        message: 'Sind Sie sicher, dass Sie dieses Bild aus der Galerie entfernen wollen?',
+        type: 'type-danger',
+        buttons: [
+          {
+            label: i18n.t('general:yes'),
+            cssClass: 'btn-danger',
+            action: function(dialogItself){
+              // Remove the thumbnail from the DOM and the block data
+              _.remove(this, function(item){
+                return item.id === parseInt(removeButton.parentNode.getAttribute('data-id'))
+              });
+              removeButton.parentNode.parentNode.removeChild(removeButton.parentNode);
+              dialogItself.close();
+            }.bind(itemList)
+          },
+          {
+            label: i18n.t('general:no'),
+            action: function(dialogItself){
+              dialogItself.close();
+            }
+          }
+        ]
       });
-      removeButton.parentNode.parentNode.removeChild(removeButton.parentNode);
     }.bind(itemList));
 
     // Create the edit button for the new thumbnail
