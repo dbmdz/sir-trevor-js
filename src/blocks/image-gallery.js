@@ -44,6 +44,11 @@ module.exports = Block.extend({
     if(data['height']){
       this.inner.querySelector('input[name="' + this.blockID + '-height"]').value = data['height'];
     }
+
+    $(this.inner.querySelector('.image-list')).sortable({
+      items: 'div.thumbnail[data-id]',
+      update: this.saveItemOrder.bind(this)
+    });
   },
 
   onBlockRender: function(){
@@ -51,7 +56,6 @@ module.exports = Block.extend({
     if(this.getBlockData()['item-list'] === undefined){
       this.setData({'item-list':[]});
     }
-    //$('.image-list').sortable();
     this.inner.querySelector('.open-gallery-upload-modal').addEventListener('click', function (ev) {
       configureUploadModal('galleryUploadModal', function(data){
         var itemList = this.getData().data['item-list'];
@@ -195,5 +199,17 @@ module.exports = Block.extend({
     // Append the thumbnail to the image list
     var imageList = this.inner.querySelector('.image-list');
     imageList.insertBefore(thumbnail, imageList.lastElementChild);
+  },
+
+  saveItemOrder: function(){
+    var itemList = this.getData().data['item-list'];
+    var reorderedItemList = [];
+    var images = this.inner.querySelectorAll('.image-list > div.thumbnail[data-id]');
+
+    [].forEach.call(images, function(item){
+      var currentItem = _.find(itemList, {'id': parseInt(item.getAttribute('data-id'))});
+      reorderedItemList.push(currentItem);
+    });
+    this.setData({'item-list': reorderedItemList});
   }
 });
