@@ -61,5 +61,17 @@ SirTrevor.Locales.de = {
     image_gallery: {
       'title': 'Bildergalerie'
     }
+  },
+  formatButtons: {
+    'bold': 'Fettschrift',
+    'italic': 'Kursiv',
+    'link': 'Link einfügen',
+    'unlink': 'Link entfernen',
+    'heading': 'Überschrift',
+    'quote': 'Zitat',
+    'person': 'Person verlinken',
+    'article': 'Artikel verlinken',
+    'place': 'Ort verlinken',
+    'bavobject': 'Objekt verlinken'
   }
 };

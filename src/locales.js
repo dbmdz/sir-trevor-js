@@ -68,6 +68,18 @@ var Locales = {
       image_gallery: {
         'title': 'Image gallery'
       }
+    },
+    formatButtons: {
+      'bold': 'Bold',
+      'italic': 'Italic',
+      'link': 'Link',
+      'unlink': 'Unlink',
+      'heading': 'Heading',
+      'quote': 'Quote',
+      'person': 'Person',
+      'article': 'Article',
+      'place': 'Place',
+      'bavobject': 'Object'
     }
   }
 };
