@@ -180,7 +180,7 @@ module.exports = Block.extend({
     editButton.addEventListener('click', function(){
       configureEditModal('editModal',itemData,function(editedData){
         _.merge(itemData, editedData);
-        this.title = 'de: ' + (editedData.text.de || '-') + ' | en: ' + (editedData.text.en || '-');
+        this.querySelector('img').title = 'de: ' + (editedData.text.de || '-') + ' | en: ' + (editedData.text.en || '-');
       }.bind(this.parentNode));
       $('#editModal').modal('show');
     });
@@ -192,7 +192,7 @@ module.exports = Block.extend({
     }else{
       thumbnail.innerHTML = '<img class="img-responsive" src="/uploads/' + itemData['image-id'] + '/thumbnail">';
     }
-    thumbnail.title = 'de: ' + (itemData.text.de || '-') + ' | en: ' + (itemData.text.en || '-');
+    thumbnail.querySelector('img').title = 'de: ' + (itemData.text.de || '-') + ' | en: ' + (itemData.text.en || '-');
     // Append the remove and edit buttons to the thumbnail
     thumbnail.insertBefore(editButton, thumbnail.firstChild);
     thumbnail.insertBefore(removeButton, thumbnail.firstChild);

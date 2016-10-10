@@ -117,7 +117,7 @@ module.exports = {
         },
         {
           name: "Article",
-          title: "Article",
+          title: "article",
           iconName: "bavarikon",
           cmd: "article-link",
           text: "article"
