@@ -18,7 +18,7 @@ module.exports = Block.extend({
            '  <div class="form-group">' +
            '    <label class="col-sm-3 control-label">Link</label>' +
            '    <div class="col-sm-9">' +
-           '      <input type="text" class="form-control js-artifact-link" data-name="link" placeholder="Link">' +
+           '      <input type="text" class="form-control js-artifact-link" data-name="link" placeholder="/object/bav-ID">' +
            '    </div>' +
            '  </div>' +
            '  <div class="form-group">' +
