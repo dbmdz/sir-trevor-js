@@ -18,9 +18,20 @@ module.exports = Block.extend({
            '</div>' +
            '<div class="imageDisplay row">' +
            '  <div class="col-lg-8 col-md-8 imageFormatting">' +
-           '    <b>Ausrichtung:</b><input type="radio" name="' + blockId + '-position" data-name="position" value="left">links <input type="radio" name="' + blockId + '-position" data-name="position" value="right">rechts' +
-           '    <b>Breite:</b><input type="radio" name="' + blockId + '-width" data-name="width" value="25%">25% <input type="radio" name="' + blockId + '-width" data-name="width" value="33%">33% ' +
-           '    <input type="radio" name="' + blockId + '-width" data-name="width" value="50%">50% <input type="radio" name="' + blockId + '-width" data-name="width" value="100%">100%' +
+           '    <b>Ausrichtung:</b>' +
+           '    <input type="radio" name="' + blockId + '-position" data-name="position" value="left" />' +
+           '    <label>links</label>' +
+           '    <input type="radio" name="' + blockId + '-position" data-name="position" value="right" />' +
+           '    <label>rechts</label>' +
+           '    <b>Breite:</b>' +
+           '    <input type="radio" name="' + blockId + '-width" data-name="width" value="25%" />' +
+           '    <label>25%</label>' +
+           '    <input type="radio" name="' + blockId + '-width" data-name="width" value="33%" />' +
+           '    <label>33%</label>' +
+           '    <input type="radio" name="' + blockId + '-width" data-name="width" value="50%" />' +
+           '    <label>50%</label>' +
+           '    <input type="radio" name="' + blockId + '-width" data-name="width" value="100%" />' +
+           '    <label>100%</label>' +
            '  </div>' +
            '  <div class="col-lg-4 col-md-4 imagePreview"></div>' +
            '</div>' +
