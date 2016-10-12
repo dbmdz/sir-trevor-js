@@ -143,6 +143,7 @@ module.exports = Block.extend({
     // Create the remove button for the new thumbnail
     var removeButton = Dom.createElement('button', {class: 'close', type: 'button'});
     removeButton.innerHTML = '<svg class="st-icon" role="img"><use xlink:href="' + config.defaults.iconUrl + '#cross"></use></svg>';
+    removeButton.title = i18n.t('blocks:' + this.type + ':remove_thumbnail');
     // Add a click handler for removing the corresponding thumbnail from the DOM and the block data
     removeButton.addEventListener('click', function(){
       // Show a dialog to confirm, that the thumbnail should really be removed from the gallery
@@ -176,6 +177,7 @@ module.exports = Block.extend({
     // Create the edit button for the new thumbnail
     var editButton = Dom.createElement('button', {class: 'close edit', type: 'button'});
     editButton.innerHTML = '<svg class="st-icon" role="img"><use xlink:href="' + config.defaults.iconUrl + '#edit"></use></svg>';
+    editButton.title = i18n.t('blocks:' + this.type + ':edit_thumbnail');
     // Add a click handler for opening an edit modal
     editButton.addEventListener('click', function(){
       configureEditModal('editModal',itemData,function(editedData){

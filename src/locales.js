@@ -66,7 +66,9 @@ var Locales = {
         'title': 'KPB Artifact'
       },
       image_gallery: {
-        'title': 'Image gallery'
+        'title': 'Image gallery',
+        'edit_thumbnail': 'Edit image information',
+        'remove_thumbnail': 'Remove image from the gallery'
       }
     },
     formatButtons: {

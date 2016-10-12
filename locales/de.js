@@ -59,7 +59,9 @@ SirTrevor.Locales.de = {
       'title': 'KPB Artefakt'
     },
     image_gallery: {
-      'title': 'Bildergalerie'
+      'title': 'Bildergalerie',
+      'edit_thumbnail': 'Bild-Infos bearbeiten',
+      'remove_thumbnail': 'Bild aus der Galerie entfernen'
     }
   },
   formatButtons: {
