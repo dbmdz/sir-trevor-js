@@ -32,6 +32,8 @@ module.exports = Block.extend({
            '    <label>50%</label>' +
            '    <input type="radio" name="' + blockId + '-width" data-name="width" value="100%" />' +
            '    <label>100%</label>' +
+           '    <b>Bild-Link:</b>' +
+           '    <input type="text" class="form-control" name="' + blockId + '-image-link" data-name="image-link" />' +
            '  </div>' +
            '  <div class="col-lg-4 col-md-4 imagePreview"></div>' +
            '</div>' +
