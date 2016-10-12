@@ -299,6 +299,29 @@ ul.st-text-block {
   color: $error-color;
 }
 
+.st-block[data-type="image"] {
+  div.imageUpload {
+    .js-image-id {
+      width: 80px;
+      padding-left: 5px;
+      margin-left: 5px;
+      text-align: center;
+    }
+  }
+
+  div.imageDisplay {
+    margin-top: 10px;
+
+    b {
+      display: block;
+
+      &:not(:first-child) {
+        margin-top: 10px;
+      }
+    }
+  }
+}
+
 .st-block[data-type="image_gallery"] {
   div.imageUpload {
     .thumbnail {
