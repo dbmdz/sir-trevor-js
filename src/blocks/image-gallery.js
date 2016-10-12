@@ -102,9 +102,9 @@ module.exports = Block.extend({
 
   onFetchSuccess: function(data){
     // Get the thumbnail corresponding to the given id
-    var thumbnail = this.block.inner.querySelector('div[data-id="' + this.id + '"]');
+    var thumbnailImage = this.block.inner.querySelector('div[data-id="' + this.id + '"] > img');
     // Create the image tag and append it to the thumbnail div
-    var objectImage = Dom.createElement('img', {src: '/iiif/' + data.previewId + '/full/200,/0/native.jpg'});
+    thumbnailImage.setAttribute('src', '/iiif/' + data.previewId + '/full/200,/0/native.jpg');
     thumbnail.appendChild(objectImage);
     this.block.ready();
   },
@@ -188,6 +188,8 @@ module.exports = Block.extend({
     // Create the thumbnail itself and define the content and title
     var thumbnail = Dom.createElement('div', {class: 'col-lg-4 col-md-4 thumbnail', 'data-id': thumbnailId});
     if(itemData['object-id']){
+      // Add a loading icon to the thumbnail
+      thumbnail.innerHTML = '<img class="img-responsive" src="/img/preloader.gif">';
       this.fetchData(itemData['object-id'], thumbnailId);
     }else{
       thumbnail.innerHTML = '<img class="img-responsive" src="/uploads/' + itemData['image-id'] + '/thumbnail">';
