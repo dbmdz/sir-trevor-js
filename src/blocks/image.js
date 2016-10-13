@@ -5,7 +5,7 @@ var Block = require('../block');
 
 module.exports = Block.extend({
 
-  type: "image",
+  type: 'image',
 
   icon_name: 'image',
 
@@ -41,23 +41,24 @@ module.exports = Block.extend({
   },
 
   loadData: function(data){
-    // retrieve the input field for the image id
-    var idInput = this.inner.querySelector('.js-image-id');
-
-    // set the image id as value for the input field
-    idInput.value = data.id;
+    // Set the image id as value for the input field
+    var idInput = this.inner.querySelector('.js-image-id').value = data.id;
 
     // Create our image tag
-    var imagePreview = Dom.createElement('img', {src: "/uploads/" + data.id + "/thumbnail", class: "thumbnail"});
+    var imagePreview = Dom.createElement('img', {src: '/uploads/' + data.id + '/thumbnail', class: 'thumbnail'});
     this.inner.querySelector('.imagePreview').appendChild(imagePreview);
 
-    // set radio button value for position
+    // Set the radio button value for position
     if(data.position){
       this.inner.querySelector('input[name="' + this.blockID + '-position"][value="' + data.position + '"]').checked = true;
     }
-    // set radio button value for width
+    // Set the radio button value for width
     if(data.width){
       this.inner.querySelectorAll('input[name="' + this.blockID + '-width"][value="' + data.width + '"]')[0].checked = true;
+    }
+    // Set the input value for the image link
+    if(data['image-link']){
+      this.inner.querySelector('input[name="' + this.blockID + '-image-link"]').value = data['image-link'];
     }
   },
 
@@ -67,7 +68,7 @@ module.exports = Block.extend({
         var idInput = this.inner.querySelector('.js-image-id');
         idInput.value = data.imageId;
         Dom.remove(this.inner.querySelector('.imagePreview > img'));
-        var imagePreview = Dom.createElement('img', {src: "/uploads/" + data.imageId + "/thumbnail", class: "thumbnail"});
+        var imagePreview = Dom.createElement('img', {src: '/uploads/' + data.imageId + '/thumbnail', class: 'thumbnail'});
         this.inner.querySelector('.imagePreview').appendChild(imagePreview);
       }.bind(this));
       $('#uploadModal').modal('show');
