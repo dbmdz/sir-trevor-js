@@ -19,7 +19,7 @@ module.exports = Block.extend({
            '<div class="imageDisplay row">' +
            '  <div class="col-lg-8 col-md-8 imageFormatting">' +
            '    <b>Ausrichtung:</b>' +
-           '    <input type="radio" name="' + blockId + '-position" data-name="position" value="left" />' +
+           '    <input type="radio" name="' + blockId + '-position" data-name="position" value="left" checked/>' +
            '    <label>links</label>' +
            '    <input type="radio" name="' + blockId + '-position" data-name="position" value="right" />' +
            '    <label>rechts</label>' +
