@@ -11,13 +11,9 @@ module.exports = Block.extend({
 
   editorHTML: function () {
     var blockId = this.blockID;
-    return '<div class="imageBlock">' +
-           '<div class="imageUpload row">' +
-           '  <a class="btn btn-primary btn-xs open-upload-modal">Bild auswählen</a> oder bekannte ID eingeben' +
-           '  <input type="text" pattern="[0-9]*" class="js-image-id" data-name="id"/>' +
-           '</div>' +
-           '<div class="imageDisplay row">' +
-           '  <div class="col-lg-8 col-md-8 imageFormatting">' +
+    return '<div class="imageBlock row">' +
+           '  <div class="col-lg-8 col-md-8 imageSettings">' +
+           '    <a class="btn btn-primary btn-xs open-upload-modal">Bild auswählen</a>' +
            '    <b>Ausrichtung:</b>' +
            '    <input type="radio" name="' + blockId + '-position" data-name="position" value="left" checked/>' +
            '    <label>links</label>' +
@@ -36,14 +32,10 @@ module.exports = Block.extend({
            '    <input type="text" class="form-control" name="' + blockId + '-image-link" data-name="image-link" />' +
            '  </div>' +
            '  <div class="col-lg-4 col-md-4 imagePreview"></div>' +
-           '</div>' +
            '</div>';
   },
 
   loadData: function(data){
-    // Set the image id as value for the input field
-    var idInput = this.inner.querySelector('.js-image-id').value = data.id;
-
     // Create our image tag
     var imagePreview = Dom.createElement('img', {src: '/uploads/' + data.id + '/thumbnail', class: 'thumbnail'});
     this.inner.querySelector('.imagePreview').appendChild(imagePreview);
@@ -64,14 +56,21 @@ module.exports = Block.extend({
 
   onBlockRender: function(){
     this.inner.querySelector('.open-upload-modal').addEventListener('click', function (ev) {
-      configureUploadModal('uploadModal', function(data){
-        var idInput = this.inner.querySelector('.js-image-id');
-        idInput.value = data.imageId;
+      configureUploadModal('extendedUploadModal', function(data){
+        // Remove any error messages
+        this.resetMessages();
+        // Add the appropriate id or display an error message and exit the process
+        if(data.imageId !== ''){
+          this.setData({'id': data.imageId});
+        }else{
+          return this.addMessage('Es wurde keine ID angegeben.');
+        }
+
         Dom.remove(this.inner.querySelector('.imagePreview > img'));
         var imagePreview = Dom.createElement('img', {src: '/uploads/' + data.imageId + '/thumbnail', class: 'thumbnail'});
         this.inner.querySelector('.imagePreview').appendChild(imagePreview);
       }.bind(this));
-      $('#uploadModal').modal('show');
+      $('#extendedUploadModal').modal('show');
     }.bind(this));
   }
 });
