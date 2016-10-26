@@ -57,7 +57,7 @@ module.exports = Block.extend({
       this.setData({'item-list':[]});
     }
     this.inner.querySelector('.open-gallery-upload-modal').addEventListener('click', function(ev){
-      configureUploadModal('extendedUploadModal', function(data){
+      configureUploadModal('galleryUploadModal', function(data){
         var itemList = this.getData().data['item-list'];
         // Calculate the id for the new thumbnail, either the incremented maximum one or first
         var nextId = _.max(itemList, 'id').id + 1 || 1;
@@ -81,7 +81,7 @@ module.exports = Block.extend({
         itemList.push(itemData);
         this.appendThumbnail(itemData, itemList, nextId);
       }.bind(this));
-      $('#extendedUploadModal').modal('show');
+      $('#galleryUploadModal').modal('show');
     }.bind(this));
     var normalizedHeightCheckbox = this.inner.querySelector('input[type="checkbox"][data-name="normalize-height"]');
     var normalizedHeightInput = this.inner.querySelector('input[type="text"][data-name="height"]');
