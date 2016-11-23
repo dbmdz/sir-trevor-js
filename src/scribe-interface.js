@@ -8,7 +8,7 @@ var scribePluginFormatterPlainTextConvertNewLinesToHTML = require('scribe-plugin
 var scribePluginLinkPromptCommand = require('scribe-plugin-link-prompt-command');
 var scribePluginSanitizer = require('scribe-plugin-sanitizer');
 var scribePersonLinkPlugin = require('./blocks/scribe-plugins/scribe-person-link-plugin');
-var scribeArticleLinkPlugin = require('./blocks/scribe-plugins/scribe-article-link-plugin');
+var scribePageLinkPlugin = require('./blocks/scribe-plugins/scribe-page-link-plugin');
 var scribePlaceLinkPlugin = require('./blocks/scribe-plugins/scribe-place-link-plugin');
 var scribeBavObjectLinkPlugin = require('./blocks/scribe-plugins/scribe-bavobject-link-plugin');
 
@@ -49,7 +49,7 @@ module.exports = {
     scribe.use(scribePluginLinkPromptCommand());
     scribe.use(scribePluginSanitizer({tags: tags}));
     scribe.use(scribePersonLinkPlugin());
-    scribe.use(scribeArticleLinkPlugin());
+    scribe.use(scribePageLinkPlugin());
     scribe.use(scribePlaceLinkPlugin());
     scribe.use(scribeBavObjectLinkPlugin());
 

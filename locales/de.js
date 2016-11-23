@@ -72,7 +72,7 @@ SirTrevor.Locales.de = {
     'heading': 'Überschrift',
     'quote': 'Zitat',
     'person': 'Person verlinken',
-    'article': 'Artikel verlinken',
+    'page': 'CMS-Seite verlinken',
     'place': 'Ort verlinken',
     'bavobject': 'Objekt verlinken'
   }

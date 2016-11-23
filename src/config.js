@@ -116,11 +116,11 @@ module.exports = {
           text: "person"
         },
         {
-          name: "Article",
-          title: "article",
+          name: "Page",
+          title: "page",
           iconName: "bavarikon",
-          cmd: "article-link",
-          text: "article"
+          cmd: "page-link",
+          text: "page"
         },
         {
           name: "Place",

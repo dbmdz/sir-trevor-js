@@ -1,11 +1,11 @@
 'use strict';
 
-var scribeArticleLinkPlugin = function(){
+var scribePageLinkPlugin = function(){
   return function(scribe){
-    var articleLinkCommand = new scribe.api.Command('article-link');
-    articleLinkCommand.nodeName = 'A';
+    var pageLinkCommand = new scribe.api.Command('page-link');
+    pageLinkCommand.nodeName = 'A';
 
-    articleLinkCommand.execute = function articleLinkCommandExecute(){
+    pageLinkCommand.execute = function pageLinkCommandExecute(){
       var selection = new scribe.api.Selection().selection.toString();
       showAutocompleteModal(selection, {
         entityName: 'bavarikon',
@@ -27,8 +27,8 @@ var scribeArticleLinkPlugin = function(){
       });
     };
 
-    scribe.commands['article-link'] = articleLinkCommand;
+    scribe.commands['page-link'] = pageLinkCommand;
   };
 };
 
-module.exports = scribeArticleLinkPlugin;
+module.exports = scribePageLinkPlugin;

@@ -79,7 +79,7 @@ var Locales = {
       'heading': 'Heading',
       'quote': 'Quote',
       'person': 'Person',
-      'article': 'Article',
+      'page': 'CMS page',
       'place': 'Place',
       'bavobject': 'Object'
     }
