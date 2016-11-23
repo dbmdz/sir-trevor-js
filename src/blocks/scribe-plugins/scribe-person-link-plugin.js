@@ -23,7 +23,7 @@ var scribePersonLinkPlugin = function(){
             dataType: 'jsonp'
           }
         },
-        title: 'Personenwahl'
+        title: 'Person wählen'
       });
     };
 

@@ -23,7 +23,7 @@ var scribePageLinkPlugin = function(){
             dataType: 'json'
           }
         },
-        title: 'Artikelwahl',
+        title: 'CMS-Seite wählen',
       });
     };
 

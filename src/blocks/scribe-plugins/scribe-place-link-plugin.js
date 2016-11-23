@@ -23,7 +23,7 @@ var scribePlaceLinkPlugin = function(){
             dataType: 'json'
           }
         },
-        title: 'Ortswahl',
+        title: 'Ort wählen',
       });
     };
 
