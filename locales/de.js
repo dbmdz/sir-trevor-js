@@ -74,6 +74,6 @@ SirTrevor.Locales.de = {
     'person': 'Person verlinken',
     'page': 'CMS-Seite verlinken',
     'place': 'Ort verlinken',
-    'bavobject': 'Objekt verlinken'
+    'bavobject': 'Kulturobjekt verlinken'
   }
 };
