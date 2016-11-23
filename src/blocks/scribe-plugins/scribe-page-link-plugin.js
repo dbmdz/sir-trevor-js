@@ -15,7 +15,7 @@ var scribePageLinkPlugin = function(){
             return _.map(parsedResponse, function(entry){
               return {
                 value: entry.title + ' (' + entry.type + ')',
-                url: '/cms/' + entry.type + '/' + entry.id
+                url: '/object/' + entry.id
               };
             });
           },
