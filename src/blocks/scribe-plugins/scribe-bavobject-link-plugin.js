@@ -6,8 +6,8 @@ var scribeBavObjectLinkPlugin = function(){
     bavObjectLinkCommand.nodeName = 'A';
 
     bavObjectLinkCommand.execute = function bavObjectLinkCommandExecute(){
-      var selection = new scribe.api.Selection().selection.toString();
-      showAutocompleteModal(selection, {
+      var selectionObject = new scribe.api.Selection();
+      showAutocompleteModal(selectionObject, {
         entityName: 'bavobject',
         remoteDef: {
           url: '/api/artifacts?q=%QUERY',

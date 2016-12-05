@@ -6,8 +6,8 @@ var scribePlaceLinkPlugin = function(){
     placeLinkCommand.nodeName = 'A';
 
     placeLinkCommand.execute = function placeLinkCommandExecute(){
-      var selection = new scribe.api.Selection().selection.toString();
-      showAutocompleteModal(selection, {
+      var selectionObject = new scribe.api.Selection();
+      showAutocompleteModal(selectionObject, {
         entityName: 'place',
         remoteDef: {
           url: '/api/places?q=%QUERY',

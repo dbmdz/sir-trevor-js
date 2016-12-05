@@ -6,8 +6,8 @@ var scribePersonLinkPlugin = function(){
     personLinkCommand.nodeName = 'A';
 
     personLinkCommand.execute = function personLinkCommandExecute(){
-      var selection = new scribe.api.Selection().selection.toString();
-      showAutocompleteModal(selection, {
+      var selectionObject = new scribe.api.Selection();
+      showAutocompleteModal(selectionObject, {
         entityName: 'person',
         remoteDef: {
           url: '//lobid.org/person?q=%QUERY&format=ids',

@@ -6,8 +6,8 @@ var scribePageLinkPlugin = function(){
     pageLinkCommand.nodeName = 'A';
 
     pageLinkCommand.execute = function pageLinkCommandExecute(){
-      var selection = new scribe.api.Selection().selection.toString();
-      showAutocompleteModal(selection, {
+      var selectionObject = new scribe.api.Selection();
+      showAutocompleteModal(selectionObject, {
         entityName: 'bavarikon',
         remoteDef: {
           url: '/api/pages?q=%QUERY',
