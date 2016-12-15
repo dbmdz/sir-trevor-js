@@ -62,7 +62,7 @@ SirTrevor.Locales.de = {
       'title': 'Bildergalerie',
       'edit_thumbnail': 'Bild-Infos bearbeiten',
       'remove_thumbnail': 'Bild aus der Galerie entfernen',
-      'height_error': 'Der Wert muss eine Zahl zwischen 100 und 400 sein.'
+      'height_error': 'Der Wert muss eine Zahl zwischen 100 und 400 sein'
     }
   },
   formatButtons: {
