@@ -68,7 +68,8 @@ var Locales = {
       image_gallery: {
         'title': 'Image gallery',
         'edit_thumbnail': 'Edit image information',
-        'remove_thumbnail': 'Remove image from the gallery'
+        'remove_thumbnail': 'Remove image from the gallery',
+        'height_error': 'The value has to be a number between 100 and 400.'
       }
     },
     formatButtons: {

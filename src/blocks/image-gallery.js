@@ -16,7 +16,9 @@ module.exports = Block.extend({
            '<div class="imageFormatting">' +
            '  <input type="checkbox" name="' + blockId + '-normalize-height" data-name="normalize-height" />' +
            '  Bildhöhe auf' +
-           '  <input class="normalized-height" type="text" name="' + blockId + '-height" data-name="height"/> Pixel vereinheitlichen' +
+           '  <input class="normalized-height" type="text" name="' + blockId + '-height" data-name="height"' +
+           '    pattern="[1-3][0-9]{2}|400" title="' + i18n.t('blocks:image_gallery:height_error') + '"' +
+           '  /> Pixel vereinheitlichen' +
            '</div>' +
            '<div class="imageUpload">' +
            '  <label>Bilder:</label>' +
