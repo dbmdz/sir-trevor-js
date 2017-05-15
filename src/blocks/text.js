@@ -48,7 +48,6 @@ module.exports = Block.extend({
   },
 
   onBlockRender: function() {
-    this.focus();
     this.toggleEmptyClass();
   },
 
